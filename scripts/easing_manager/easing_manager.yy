@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_utility",
+  "%Name":"easing_manager",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_utility",
+  "name":"easing_manager",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"Systems",
+    "path":"folders/Scripts/Systems.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

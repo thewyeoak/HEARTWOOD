@@ -1,4 +1,4 @@
-scale = global.max_scale_integer / 2
+scale = global.max_scale / 2
 
 if (!global.keys_held.escape) {
     image_alpha = 0; image_index = 0; time = 0

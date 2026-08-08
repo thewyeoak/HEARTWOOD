@@ -12,6 +12,12 @@ enum text_effects {
     up_down // Similar to wave, but only on Y Axis
 }
 
+enum borders {
+    off = -1,
+    blank = 0,
+    sepia = 1
+}
+
 enum event_states {
 	waiting,
 	running,
@@ -61,10 +67,4 @@ enum easing
 	in_bounce,
 	out_bounce,
 	inout_bounce
-}
-
-enum borders
-{
-    none,
-    hotland,
 }
