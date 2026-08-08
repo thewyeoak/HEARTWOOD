@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"_TEMP_mus_faintglow",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":1,
+  "compression":3,
+  "compressionQuality":10,
+  "conversionMode":0,
+  "duration":66.82123,
+  "exportDir":"",
+  "name":"_TEMP_mus_faintglow",
+  "parent":{
+    "name":"Music",
+    "path":"folders/Sounds/Music.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"_TEMP_mus_faintglow.mp3",
+  "volume":1.0,
+}

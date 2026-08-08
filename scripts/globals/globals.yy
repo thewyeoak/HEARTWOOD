@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"globals",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"globals",
+  "parent":{
+    "name":"Storage",
+    "path":"folders/Scripts/Storage.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

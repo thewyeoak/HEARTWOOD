@@ -1,0 +1,1 @@
+ease_alpha(id, 1, .5, easing.linear)
