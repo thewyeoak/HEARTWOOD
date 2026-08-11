@@ -1,7 +1,7 @@
 function update_window() {
-    var _has_border = (global.settings.border != borders.off)
+    var _has_border = (global.settings.border != global.borders.off)
 
-    var _base_w = _has_border ? 960 : 640;
+    var _base_w = _has_border ? 960 : 640
     var _base_h = _has_border ? 540 : 480
 
     if (window_get_fullscreen()) {

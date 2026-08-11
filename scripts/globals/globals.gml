@@ -1,7 +1,27 @@
-randomize();
+randomize()
 
 global.time = 0
-global.spawn_index = 0;
+global.spawn_index = 0
+
+global.borders = {
+    off: -1,
+    blank: 0,
+    sepia: 1
+}
+
+global.debug =
+{
+    cheats:
+    {
+        enabled: false,
+        noclip: false,
+        hitboxes: false
+    },
+    
+    console: true,
+    display: true,
+    build: false
+}
 
 global.keys_pressed = 
 {
@@ -48,18 +68,4 @@ global.joystick =
 	down: false,
 	left: false,
 	right: false
-}
-
-global.debug =
-{
-    cheats:
-    {
-        enabled: true,
-        noclip: false,
-        hitboxes: true
-    },
-    
-    console: false,
-    display: true,
-    build: false
 }

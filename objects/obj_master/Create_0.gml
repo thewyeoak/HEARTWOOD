@@ -4,11 +4,12 @@ global.max_scale = min(_width div 640, _height div 480)
 
 global.offset_x = (_width - 640 * global.max_scale) div 2
 global.offset_y = (_height - 480 * global.max_scale) div 2
+border_alpha = 1
 
 global.settings = 
 {
     window_scale: 1,
-    border: borders.blank,
+    border: global.borders.blank,
     volume_music: 1,
     volume_sfx: 1,
     volume_master: 1

@@ -1,7 +1,7 @@
-var _has_border = (global.settings.border != borders.off)
+var _has_border = (global.settings.border != global.borders.off)
 
 if (_has_border) {
-    draw_sprite_ext(spr_borders, global.settings.border, global.offset_x, global.offset_y, global.draw_scale, global.draw_scale, 0, c_white, 1)
+    draw_sprite_ext(spr_borders, global.settings.border, global.offset_x, global.offset_y, global.draw_scale, global.draw_scale, 0, c_white, border_alpha)
 }
 
 var _app_x = global.offset_x

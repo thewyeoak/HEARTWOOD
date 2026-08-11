@@ -12,16 +12,11 @@ enum text_effects {
     up_down // Similar to wave, but only on Y Axis
 }
 
-enum borders {
-    off = -1,
-    blank = 0,
-    sepia = 1
-}
-
-enum event_states {
-	waiting,
-	running,
-	finished
+enum data_types {
+    bool,
+    integer,
+    real,
+    string
 }
 
 enum easing

@@ -12,7 +12,6 @@ function ease_start(_target, _variable, _target_value, _duration, _ease_type, _c
         : variable_instance_exists(_target, _variable);
 
     if (!_exists) {
-        show_debug_message("[easing] '" + _variable + "' didn't exist on target yet - initializing it to " + string(_target_value) + ".");
         _target[$ _variable] = _target_value;
     }
 

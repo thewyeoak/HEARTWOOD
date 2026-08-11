@@ -1,4 +1,4 @@
-temp_font_load = fnt_main;
+temp_font_load = fnt_main
 
 // --- fonts ---
 #macro format_basic fnt_main, 16, 36
