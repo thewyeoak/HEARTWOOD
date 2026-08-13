@@ -4,7 +4,8 @@ global.max_scale = min(_width div 640, _height div 480)
 
 global.offset_x = (_width - 640 * global.max_scale) div 2
 global.offset_y = (_height - 480 * global.max_scale) div 2
-border_alpha = 1
+border_alpha = 1; fade_alpha = 0
+fade_color = c_black
 
 global.settings = 
 {
@@ -53,3 +54,24 @@ application_surface_draw_enable(false)
 gpu_set_texfilter(false)
 
 update_window()
+
+function fade_in(_duration, _ease, _color = c_black, _depth = -100, _callback = undefined) 
+{
+    depth = _depth
+    fade_color = _color
+    fade_alpha = 0
+    ease_start(self, "fade_alpha", 1, _duration, _ease, _callback)
+}
+
+function fade_out(_duration, _ease, _depth = -100, _callback = undefined) 
+{
+    depth = _depth
+    fade_alpha = 1
+    ease_start(self, "fade_alpha", 0, _duration, _ease, _callback)
+}
+
+function fade_to(_duration, _ease, _to, _depth = -100, _callback = undefined) 
+{
+    depth = _depth
+    ease_start(self, "fade_alpha", _to, _duration, _ease, _callback)
+}

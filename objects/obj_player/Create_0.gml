@@ -13,5 +13,7 @@ sprites =
     right : spr_player_right
 }
 
-moving = undefined; footstep = true ; base_footstep = 12 // base_footstep is how fast the footstep sounds should be (higher = slower)
-can_interact = true ; can_run = true
+moving = undefined; footstep = true; base_footstep = 12 // base_footstep is how fast the footstep sounds should be (higher = slower)
+can_interact = true; can_run = true
+
+outline_color = c_red; outline_alpha = 0
