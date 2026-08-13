@@ -28,6 +28,16 @@ global.files =
     }
 }
 
+global.rooms = []
+global.room_names = []
+var _current_room = room_first
+
+while (_current_room != -1) {
+    array_push(global.rooms, _current_room)
+    array_push(global.room_names, room_get_name(_current_room))
+    _current_room = room_next(_current_room)
+}
+
 global.current_file = undefined
 global.current_cutscene = undefined
 global.time = 0

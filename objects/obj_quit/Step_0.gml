@@ -5,9 +5,12 @@ if (!global.keys_held.escape) {
     ease_cancel(id, "image_alpha"); exit
 }
 
-if (++time == 30) 
-{
+if (++time == 30) {
     game_end();	
+}
+
+if keyboard_check_pressed(vk_escape) {
+    ease_alpha(id, 1, .5, easing.linear)
 }
 
 image_index = time/10

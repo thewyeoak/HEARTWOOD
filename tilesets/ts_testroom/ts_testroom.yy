@@ -17,7 +17,10 @@
   },
   "resourceType":"GMTileSet",
   "resourceVersion":"2.0",
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_testroom",
+    "path":"sprites/spr_testroom/spr_testroom.yy",
+  },
   "spriteNoExport":false,
   "textureGroupId":{
     "name":"Default",

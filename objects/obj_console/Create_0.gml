@@ -1,6 +1,11 @@
 enabled = false
+
 width = 640
-height = 730
+height = 641
+
+open_height = 480
+close_height = height
+
 console_surface = -1
 
 logs = []
@@ -8,27 +13,57 @@ command_history = []
 
 command_count = 0
 history_index = 0
+backspace_timer = 0
 
 scroll_offset = 0
-char_limit = 32
+char_limit = 64
 input_string = ""
 autocomplete_match = ""
 
-global.rooms = []
-var _current_room = room_first
-
-while (_current_room != -1) {
-    array_push(global.rooms, _current_room)
-    _current_room = room_next(_current_room)
-}
-
 commands = [
+      {
+        name: "help",
+        description: "Describes and shows all commands' functions and usages.",
+        cheat: false, 
+        args: [],
+        func: method(id, function() {
+           for (var i = 0; i < array_length(commands); i++) {
+               var _args_string = ""
+               var _cmd = commands[i]
+            
+               for (var a = 0; a < array_length(_cmd.args); a++) { // required args formatted with <>
+                   var _arg = ""
+                   switch(_cmd.args[a]) {
+                       case data_types.bool: _arg = "<boolean> "; break
+                       case data_types.integer: _arg = "<integer> "; break
+                       case data_types.real: _arg = "<real> "; break
+                       case data_types.string: _arg = "<string> "; break
+                   }
+                   _args_string += _arg
+               }
+            
+               var _opt_args = _cmd[$ "optional_args"] ?? []
+            
+               for (var a = 0; a < array_length(_opt_args); a++) { // optional args formatted with []
+                   var _arg = ""
+                   switch(_opt_args[a]) {
+                       case data_types.bool: _arg = "[boolean] "; break
+                       case data_types.integer: _arg = "[integer] "; break
+                       case data_types.real: _arg = "[real] "; break
+                       case data_types.string: _arg = "[string] "; break
+                   }
+                   _args_string += _arg
+               }
+            
+               log_console("- " + _cmd.name + " " + _args_string + ": " + _cmd.description)
+           }
+        })
+    },
     {
         name: "sv_cheats",
         description: "sv_cheats enables the usage of cheat commands, such as noclip, show hitboxes, and more. Enabling this marks the save file with a permanent tag that disables achievements.",
-        cheat: false, 
+        cheat: false, // this is funny to me because its technically not one because we can run it without cheats
         args: [data_types.bool],
-        optional_args: [],
         func: method(id, function(_enabled) {
             var _string = _enabled ? "enabled" : "disabled"
             global.debug.cheats.enabled = _enabled
@@ -44,7 +79,7 @@ commands = [
         description: "Sets the current border, check the borders enum for options.",
         cheat: false,
         args: [data_types.string],
-        optional_args: [],
+        arg_options: [variable_struct_get_names(global.borders)],
         func: method(id, function(_input) {
             var _string = string_lower(_input)
             var _border_val = variable_struct_get(global.borders, _string)
@@ -60,13 +95,39 @@ commands = [
         })
     }, 
     {
+        name: "room_goto",
+        description: "Goes to the specified room at the index specified. an obj_marker instance must be in the specified room.",
+        cheat: true,
+        args: [data_types.string],
+        optional_args: [data_types.integer],
+        arg_options: [global.room_names],
+        func: method(id, function(_room_name, _index = 0) {
+            var _search = string_lower(_room_name)
+            var _room_index = undefined
+            
+            for (var i = 0; i < array_length(global.rooms); i++) {
+                if (string_lower(global.room_names[i]) == _search) {
+                    _room_index = global.rooms[i]
+                    break
+                }
+            }
+            
+            if (_room_index == undefined) {
+                log_console("Error: '" + _room_name + "' is not a valid room.", c_red)
+                return
+            }
+            
+            global.spawn_index = _index
+            room_goto(_room_index)
+        })
+    },
+    {
         name: "window_scale",
         description: "Sets the window scale to the integer specified.",
         cheat: false,
         args: [data_types.integer],
-        optional_args: [],
         func: method(id, function(_num) {
-            if (_num <= 0) || (_num >= 6) {
+            if (_num <= 0) || (_num > 5) {
                 log_console("Error: Invalid window scale. Minimum is one and maximum is five.", c_red)
                 return
             }
@@ -81,7 +142,6 @@ commands = [
         description: "Shows collision, triggers, interactables, and hazard zones as sprites in the world.",
         cheat: true,
         args: [data_types.bool],
-        optional_args: [],
         func: method(id, function(_enabled) {
             var _string = _enabled ? "enabled" : "disabled"
             global.debug.cheats.hitboxes = _enabled
@@ -145,8 +205,10 @@ function run_command(_input) {
                 break
             }
             
+            var _opt_args = _cmd[$ "optional_args"] ?? []
+            
             var _req_count = array_length(_cmd.args)
-            var _opt_count = array_length(_cmd.optional_args)
+            var _opt_count = array_length(_opt_args)
             var _given_count = array_length(_raw_args)
             
             if (_given_count < _req_count || _given_count > (_req_count + _opt_count)) {
@@ -159,7 +221,7 @@ function run_command(_input) {
             
             for (var j = 0; j < _given_count; j++) {
                 var _raw_val = string_trim(_raw_args[j])
-                var _expected_type = (j < _req_count) ? _cmd.args[j] : _cmd.optional_args[j - _req_count]
+                var _expected_type = (j < _req_count) ? _cmd.args[j] : _opt_args[j - _req_count]
                 
                 switch (_expected_type) {
                     case data_types.bool:
@@ -171,7 +233,7 @@ function run_command(_input) {
                             log_console("Error: Argument " + string(j+1) + " must be a boolean (true/false).", c_red)
                             _valid_types = false
                         }
-                        break
+                    break
                         
                     case data_types.integer:
                     case data_types.real:
@@ -183,11 +245,11 @@ function run_command(_input) {
                             log_console("Error: Argument " + string(j+1) + " must be a number.", c_red)
                             _valid_types = false
                         }
-                        break
+                    break
                         
                     case data_types.string:
                         array_push(_parsed_args, _raw_val)
-                        break
+                    break
                 }
                 
                 if (!_valid_types) break
@@ -210,4 +272,25 @@ function run_command(_input) {
     if (!_found) {
         log_console("Unknown command: '" + _cmd_name + "'. Type 'help' for a list of commands.", c_red)
     }
+}
+
+/// @description Gives a list of valid autocomplete strings for a given argument slot of a command; can be specified through arg_options.
+function get_arg_options(_cmd, _arg_index) {
+    var _req_count = array_length(_cmd.args)
+    var _opt_args = _cmd[$ "optional_args"] ?? []
+    var _type = (_arg_index < _req_count) ? _cmd.args[_arg_index] : _opt_args[_arg_index - _req_count]
+    
+    var _custom = _cmd[$ "arg_options"]
+    if (_custom != undefined && _arg_index < array_length(_custom)) {
+        var _source = _custom[_arg_index]
+        if (_source != undefined) {
+            return is_method(_source) ? _source() : _source
+        }
+    }
+    
+    if (_type == data_types.bool) {
+        return ["true", "false"]
+    }
+    
+    return []
 }
