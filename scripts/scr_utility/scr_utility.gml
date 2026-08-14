@@ -30,5 +30,5 @@ function get_sprite_center()
     return {
         x: x + lengthdir_x(_dist, _dir),
         y: y + lengthdir_y(_dist, _dir)
-    };
+    }
 }

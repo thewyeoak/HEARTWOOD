@@ -1,10 +1,8 @@
 enabled = false
 
-width = 640
-height = 641
+width = 640; height = 641
 
-open_height = 480
-close_height = height
+open_height = 480; close_height = height
 
 console_surface = -1
 
@@ -17,8 +15,7 @@ backspace_timer = 0
 
 scroll_offset = 0
 char_limit = 64
-input_string = ""
-autocomplete_match = ""
+input_string = ""; autocomplete_match = ""
 
 commands = [
       {

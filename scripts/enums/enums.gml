@@ -19,6 +19,18 @@ enum data_types {
     string
 }
 
+enum soul_mode {
+    battle,
+    overworld,
+    blue
+}
+
+enum blaster_state {
+    idle,
+    charging,
+    recoil
+}
+
 enum easing
 {
 	linear,

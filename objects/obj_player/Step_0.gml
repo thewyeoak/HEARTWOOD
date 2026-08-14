@@ -1,11 +1,5 @@
-var _dir_x = 0
-var _dir_y = 0
-
-if can_player_move()
-{
-    _dir_x = global.keys_held.right - global.keys_held.left
-    _dir_y = global.keys_held.down - global.keys_held.up
-}
+var _dir_x = can_player_move() ? (global.keys_held.right - global.keys_held.left) : 0
+var _dir_y = can_player_move() ? (global.keys_held.down - global.keys_held.up) : 0
 
 var _movement_spd = global.keys_held.cancel and can_run ? 5 : 3
 
@@ -232,17 +226,14 @@ var _target_footstep = _running ? base_footstep / 2 : base_footstep
 
 if footstep and moving 
 {
-    if time == 0 
-    {
+    if time == 0 {
         audio_play_sound(snd_step1, 10, false)
     }
-    if time == _target_footstep 
-    {
+    if time == _target_footstep {
         audio_play_sound(snd_step2, 10, false)
     }
     time++
-    if time >= _target_footstep * 2 
-    {
+    if time >= _target_footstep * 2 {
         time = 0
     }
 }

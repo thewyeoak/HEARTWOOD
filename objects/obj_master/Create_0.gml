@@ -11,7 +11,7 @@ global.settings =
 {
     window_scale: 1,
     border: global.borders.blank,
-    volume_music: 1,
+    volume_music: 0.2,
     volume_sfx: 1,
     volume_master: 1
 }

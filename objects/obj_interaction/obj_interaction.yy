@@ -10,7 +10,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Interactables",
-    "path":"folders/Objects/Systems/Interactables.yy",
+    "path":"folders/Objects/Interactables.yy",
   },
   "parentObjectId":null,
   "persistent":false,

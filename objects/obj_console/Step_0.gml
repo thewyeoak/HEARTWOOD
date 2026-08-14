@@ -1,6 +1,5 @@
 if (global.keys_pressed.debug && global.debug.console) {
     enabled = !enabled
-    
     var _ease_type = easing.out_cubic
     var _ease_spd = 0.8
     var _check = enabled ? open_height : close_height
