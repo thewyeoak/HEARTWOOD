@@ -9,6 +9,16 @@ global.borders = {
     sepia: 1
 }
 
+global.stats = {
+    hp: 20,
+    max_hp: 20,
+    lv: 1,
+    exp: 0,
+    atk: 10,
+    def: 10,
+    gold: 0
+}
+
 global.debug =
 {
     cheats:

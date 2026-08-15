@@ -10,11 +10,12 @@ _dest_y = clamp(_dest_y, _margin, room_height - _margin)
 
 var _blaster = instance_create_depth(-1000, -1000, self.depth, obj_gblaster)
 with (_blaster) {
+    damage = 2
     self_target.x = _dest_x
     self_target.y = _dest_y
     target_object = obj_heart
     
-    image_yscale = 0.5 // can be set to whatever 
+    image_yscale = 1 // can be set to whatever 
 }
 
 alarm[0] = spawn_rate

@@ -1,5 +1,4 @@
 enabled = false
-
 width = 640; height = 641
 
 open_height = 480; close_height = height
@@ -66,7 +65,7 @@ commands = [
             global.debug.cheats.enabled = _enabled
             
             if (_enabled) then {
-                array_push(global.files.file_1.flags, "dirty_cheater") // TODO: do saves and replace with global.current_save.flags
+                array_push(global.current_file.flags, "dirty_cheater") // TODO: do saves and replace with global.current_save.flags
             }
             log_console("sv_cheats have been " + _string + ".")
         })

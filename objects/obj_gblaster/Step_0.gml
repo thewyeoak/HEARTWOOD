@@ -12,7 +12,7 @@ if (!initialized) {
     var _dist_top = self_target.y
     var _dist_bottom = room_height - self_target.y
     
-    var _nearest_edge = min(_dist_left, _dist_right, _dist_top, _dist_bottom);
+    var _nearest_edge = min(_dist_left, _dist_right, _dist_top, _dist_bottom)
     var _pad = 50
     
     if (_nearest_edge == _dist_left) {
@@ -30,11 +30,11 @@ if (!initialized) {
     }
     
     initialized = true
-    audio_play_sound(snd_blastercharge, 10, false)
+    audio_play_sound(snd_blastercharge, 2, false)
     alarm[0] = fire_delay
 }
 
-if (state == blaster_state.idle || state == blaster_state.charging) {
+if (state == "idle" || state == "charge") {
     x = lerp(x, self_target.x, 0.2); y = lerp(y, self_target.y, 0.2)
     target_angle = point_direction(x, y, target.x, target.y)
     
@@ -43,33 +43,38 @@ if (state == blaster_state.idle || state == blaster_state.charging) {
 }
 
 switch (state) {
-    case blaster_state.idle:
+    case "idle":
         image_index = 0
     break
         
-    case blaster_state.charging:
+    case "charge":
         if (image_index >= 4) {
-            state = blaster_state.recoil
+            state = "recoil"
           
             var _beam = instance_create_depth(x, y, self.depth+1, obj_gblasterbeam)
-            audio_play_sound(snd_blasterfire, 10, false)
+            audio_play_sound(snd_blasterfire, 2, false)
             
             _beam.image_angle = image_angle
             _beam.creator = id
             _beam.max_thickness = image_yscale * 3
+            _beam.damage = damage
+            
+            if (instance_exists(obj_camera)) {
+                obj_camera.apply_shake(1, 0.25)
+            }
             
             recoil_x = x - lengthdir_x(1000, image_angle)
             recoil_y = y - lengthdir_y(1000, image_angle)
         }
     break
         
-    case blaster_state.recoil:
+    case "recoil":
         if (image_index < 4) {
             image_index = 4
         }
         
-        x = lerp(x, recoil_x, 0.0125)
-        y = lerp(y, recoil_y, 0.0125)
+        x = lerp(x, recoil_x, 0.01)
+        y = lerp(y, recoil_y, 0.01)
         
         if (point_distance(x, y, self_target.x, self_target.y) > 800) {
             instance_destroy()

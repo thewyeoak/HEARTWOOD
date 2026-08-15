@@ -14,8 +14,8 @@
   "exportDir":"",
   "name":"snd_b",
   "parent":{
-    "name":"General",
-    "path":"folders/Sounds/SFX/General.yy",
+    "name":"SFX",
+    "path":"folders/Sounds/SFX.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

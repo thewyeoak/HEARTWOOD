@@ -1,2 +1,2 @@
-state = blaster_state.charging
+state = "charge"
 image_speed = 1

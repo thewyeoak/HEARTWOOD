@@ -9,5 +9,9 @@ switch (mode) {
     break
 }
 
+if (visage_alpha > 0) {
+    draw_sprite_ext(sprite_index, image_index, x, y, visage_scale, visage_scale, image_angle, c_white, visage_alpha)
+}
+
 draw_self()
 shader_reset()

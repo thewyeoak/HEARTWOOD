@@ -21,7 +21,7 @@ global.files =
     file_1: 
     {
         exists: false,
-        player_name: undefined,
+        player_name: "CHARA", // temporary
         playtime: undefined,
         save_location: undefined,
         fun: undefined,
@@ -39,7 +39,7 @@ while (_current_room != -1) {
     _current_room = room_next(_current_room)
 }
 
-global.current_file = undefined
+global.current_file = global.files.file_1 // temporary
 global.current_cutscene = undefined
 global.time = 0
 

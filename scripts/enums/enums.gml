@@ -7,9 +7,9 @@ enum directions
 }
 
 enum text_effects {
-	swirl,  // Characters move in circles
-	shake, // Characters move around sporadically
-    up_down // Similar to wave, but only on Y Axis
+	swirl,  // characters move in circles
+	shake, // characters move around sporadically
+    up_down // similar to wave, but only on y Axis
 }
 
 enum data_types {
@@ -23,12 +23,6 @@ enum soul_mode {
     battle,
     overworld,
     blue
-}
-
-enum blaster_state {
-    idle,
-    charging,
-    recoil
 }
 
 enum easing

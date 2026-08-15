@@ -1,1 +1,1 @@
-been_grazed = false
+been_grazed = false; damage = 1
