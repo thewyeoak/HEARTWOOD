@@ -23,7 +23,7 @@ global.files =
         exists: false,
         player_name: "CHARA", // temporary
         playtime: undefined,
-        save_location: undefined,
+        save_location: rm_test, // temporary
         fun: undefined,
         flags: []
     }

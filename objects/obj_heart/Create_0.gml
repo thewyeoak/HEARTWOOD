@@ -20,9 +20,9 @@ visage_scale = image_xscale; visage_alpha = 0
 
 function create_visage() {
     audio_play_sound(snd_bell, 10, false)
-    visage_scale = image_xscale; visage_alpha = 0.7
+    visage_scale = image_xscale; visage_alpha = 1
     
     var _ease_time = 0.3
-    ease_start(id, "visage_scale", image_xscale * 2, _ease_time, easing.linear)
+    ease_start(id, "visage_scale", image_xscale * 2.5, _ease_time, easing.linear)
     ease_start(id, "visage_alpha", 0, _ease_time, easing.linear)
 }

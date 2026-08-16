@@ -227,10 +227,10 @@ var _target_footstep = _running ? base_footstep / 2 : base_footstep
 if footstep and moving 
 {
     if time == 0 {
-        audio_play_sound(snd_step1, 10, false)
+        play_sfx(snd_step1, 1)
     }
     if time == _target_footstep {
-        audio_play_sound(snd_step2, 10, false)
+        play_sfx(snd_step2, 1)
     }
     time++
     if time >= _target_footstep * 2 {

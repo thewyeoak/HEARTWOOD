@@ -65,7 +65,7 @@ commands = [
             global.debug.cheats.enabled = _enabled
             
             if (_enabled) then {
-                array_push(global.current_file.flags, "dirty_cheater") // TODO: do saves and replace with global.current_save.flags
+                array_push(global.current_file.flags, "dirty_cheater")
             }
             log_console("sv_cheats have been " + _string + ".")
         })

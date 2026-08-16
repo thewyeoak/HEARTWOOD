@@ -30,7 +30,7 @@ if (!initialized) {
     }
     
     initialized = true
-    audio_play_sound(snd_blastercharge, 2, false)
+    play_sfx(snd_blastercharge, 0.25)
     alarm[0] = fire_delay
 }
 
@@ -52,7 +52,7 @@ switch (state) {
             state = "recoil"
           
             var _beam = instance_create_depth(x, y, self.depth+1, obj_gblasterbeam)
-            audio_play_sound(snd_blasterfire, 2, false)
+            play_sfx(snd_blasterfire, 0.5)
             
             _beam.image_angle = image_angle
             _beam.creator = id

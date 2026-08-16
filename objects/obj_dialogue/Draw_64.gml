@@ -1,0 +1,1 @@
+_typewriter.draw(x, y)

@@ -12,7 +12,7 @@
   "overriddenProperties":[],
   "parent":{
     "name":"Debug",
-    "path":"folders/Objects/Systems/GUI/Debug.yy",
+    "path":"folders/Objects/GUI/Debug.yy",
   },
   "parentObjectId":null,
   "persistent":true,

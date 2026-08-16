@@ -1,5 +1,4 @@
-enum directions 
-{
+enum directions {
     up,
     down,
     left,
@@ -25,8 +24,7 @@ enum soul_mode {
     blue
 }
 
-enum easing
-{
+enum easing {
 	linear,
 	
 	in_sine,

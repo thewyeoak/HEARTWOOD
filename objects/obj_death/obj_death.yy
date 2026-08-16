@@ -1,16 +1,17 @@
 {
   "$GMObject":"",
-  "%Name":"obj_damage",
+  "%Name":"obj_death",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":64,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_damage",
+  "name":"obj_death",
   "overriddenProperties":[],
   "parent":{
-    "name":"Text",
-    "path":"folders/Objects/Systems/Text.yy",
+    "name":"Systems",
+    "path":"folders/Objects/Systems.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -30,7 +31,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_heart_mask",
+    "path":"sprites/spr_heart_mask/spr_heart_mask.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

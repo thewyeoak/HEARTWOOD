@@ -2,7 +2,7 @@ function can_player_move() {
     var _console_closed = !instance_exists(obj_console) || !obj_console.enabled
     var _dialogue_closed = !instance_exists(obj_dialogue_box)
 
-    return _dialogue_closed && _console_closed
+    return _dialogue_closed && _console_closed && is_undefined(global.current_cutscene)
 }
 
 function get_sprite_center() 

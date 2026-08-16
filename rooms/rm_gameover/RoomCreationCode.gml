@@ -1,0 +1,1 @@
+stop_all_sounds()
