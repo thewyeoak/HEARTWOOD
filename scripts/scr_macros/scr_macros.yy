@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_macros",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_macros",
+  "parent":{
+    "name":"Storage",
+    "path":"folders/Scripts/Storage.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

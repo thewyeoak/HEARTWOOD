@@ -41,8 +41,8 @@ function draw_outline(outline_width, outline_color, outline_alpha)
         __ydirB = lengthdir_y(outline_width, image_angle)
     }
     
-    var _cx = _size / 2
-    var _cy = _size / 2
+    var _cx = _size div 2
+    var _cy = _size div 2
     
     draw_sprite_ext(sprite_index, image_index, _cx + __xdirA, _cy + __ydirA, image_xscale, image_yscale, image_angle, c_white, 1)
     draw_sprite_ext(sprite_index, image_index, _cx - __xdirA, _cy - __ydirA, image_xscale, image_yscale, image_angle, c_white, 1)
@@ -98,8 +98,8 @@ function draw_outline_ext(sprite, subimg, outline_x, outline_y, outline_xscale, 
         __ydirB = lengthdir_y(outline_width, outline_rot)
     }
     
-    var _cx = _size / 2
-    var _cy = _size / 2
+    var _cx = _size div 2
+    var _cy = _size div 2
     
     draw_sprite_ext(sprite, subimg, _cx + __xdirA, _cy + __ydirA, outline_xscale, outline_yscale, outline_rot, c_white, 1)
     draw_sprite_ext(sprite, subimg, _cx - __xdirA, _cy - __ydirA, outline_xscale, outline_yscale, outline_rot, c_white, 1)

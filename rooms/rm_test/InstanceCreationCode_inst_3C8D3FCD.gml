@@ -1,5 +1,4 @@
-function interact() 
-{
+function interact() {
     var cuts = cutscene_create()
         .add_events(
             [

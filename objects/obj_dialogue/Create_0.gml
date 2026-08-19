@@ -1,1 +1,0 @@
-_typewriter = new typewriter(font, char_spacing, line_spacing, line_length, add_asterisks, blip, can_skip, speaker, text, pitch_low, pitch_high)

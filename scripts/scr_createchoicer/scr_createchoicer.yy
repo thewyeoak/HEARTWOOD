@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_createchoicer",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_createchoicer",
+  "parent":{
+    "name":"Text",
+    "path":"folders/Scripts/Text.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

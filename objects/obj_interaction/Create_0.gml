@@ -1,1 +1,0 @@
-_id = instance_id_get(self)

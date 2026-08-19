@@ -55,6 +55,15 @@ gpu_set_texfilter(false)
 
 update_window()
 
+exception_unhandled_handler(function(ex) {
+    play_sfx(snd_glassbreak, 0.5)
+    
+    var _error_text = "I don't think that was supposed to happen..." + ex.longMessage
+    show_message(_error_text)
+    
+    return 0
+})
+
 function fade_in(_duration, _ease, _color = c_black, _depth = -100, _callback = undefined) 
 {
     depth = _depth

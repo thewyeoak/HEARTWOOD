@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_easing",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_easing",
+  "parent":{
+    "name":"Systems",
+    "path":"folders/Scripts/Systems.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"snd_blip_noelle",
+  "audioGroupId":{
+    "name":"audiogroup_sfx",
+    "path":"audiogroups/audiogroup_sfx",
+  },
+  "bitDepth":1,
+  "channelFormat":1,
+  "compression":0,
+  "compressionQuality":10,
+  "conversionMode":0,
+  "duration":0.04328798,
+  "exportDir":"",
+  "name":"snd_blip_noelle",
+  "parent":{
+    "name":"Text",
+    "path":"folders/Sounds/SFX/Text.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"snd_blip_noelle.wav",
+  "volume":1.0,
+}

@@ -136,3 +136,30 @@ function typewriter(_font, _char_spacing, _line_spacing, line_length, add_asteri
 		draw_formatted_text(_x, _y, font, char_spacing, line_spacing, shown_text);
 	}
 }
+
+function page_typewriter(_page) {
+	return new typewriter(
+		_page[$ "font"] ?? fnt_main,
+		_page[$ "char_spacing"] ?? 16,
+		_page[$ "line_spacing"] ?? 36,
+		_page[$ "line_length"] ?? (is_undefined(_page.face) ? 32 : 25),
+		_page[$ "add_asterisks"] ?? true,
+		_page.blip,
+		_page[$ "can_skip"] ?? true,
+		_page.speaker,
+		_page.text,
+		_page[$ "pitch_low"] ?? 1,
+		_page[$ "pitch_high"] ?? 1
+	)
+}
+
+function dialogue_next_page() {
+	if current_page + 1 < pages_length {
+		current_page++
+		_typewriter = page_typewriter(pages[current_page])
+	} else {
+		instance_destroy()
+	}
+	
+	_choice_selector = noone
+}

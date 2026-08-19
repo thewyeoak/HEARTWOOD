@@ -1,4 +1,6 @@
-draw_sprite_stretched(sprite_index, image_index, box_margin_w, rect_y, box_width, box_height)
+if (draw_box) {
+	draw_sprite_stretched(sprite_index, image_index, box_margin_w, rect_y, box_width, box_height)
+}
 
 if (!is_undefined(pages[current_page].face)) {
 	draw_sprite_ext(
@@ -18,4 +20,8 @@ if (!is_undefined(pages[current_page].face)) {
 	);
 }
 
-_typewriter.draw(is_undefined(pages[current_page].face) ? text_x : text_x_with_face, text_y);
+if (_choice_selector != noone) {
+	_choice_selector.draw()
+} 
+    
+_typewriter.draw(is_undefined(pages[current_page].face) ? text_x : text_x_with_face, text_y)
