@@ -1,7 +1,14 @@
 enabled = false
-width = 640; height = 641
 
-open_height = 480; close_height = height
+width = game_width
+
+// the panel hangs off the bottom of "height", so closing means pushing height past the screen
+input_height = 32
+log_height = 128
+
+open_height = game_height
+close_height = game_height + input_height + log_height + 1
+height = close_height
 
 console_surface = -1
 
@@ -14,7 +21,16 @@ backspace_timer = 0
 
 scroll_offset = 0
 char_limit = 64
-input_string = ""; autocomplete_match = ""
+
+input_string = ""
+autocomplete_match = ""
+
+// autocomplete only rescans when the typed text actually changes
+autocomplete_source = ""
+
+// how the console slides in and out
+slide_time = 0.8
+slide_ease = easing.out_cubic
 
 commands = [
       {
@@ -30,10 +46,18 @@ commands = [
                for (var a = 0; a < array_length(_cmd.args); a++) { // required args formatted with <>
                    var _arg = ""
                    switch(_cmd.args[a]) {
-                       case data_types.bool: _arg = "<boolean> "; break
-                       case data_types.integer: _arg = "<integer> "; break
-                       case data_types.real: _arg = "<real> "; break
-                       case data_types.string: _arg = "<string> "; break
+                       case data_types.bool:
+                           _arg = "<boolean> "
+                           break
+                       case data_types.integer:
+                           _arg = "<integer> "
+                           break
+                       case data_types.real:
+                           _arg = "<real> "
+                           break
+                       case data_types.string:
+                           _arg = "<string> "
+                           break
                    }
                    _args_string += _arg
                }
@@ -43,10 +67,18 @@ commands = [
                for (var a = 0; a < array_length(_opt_args); a++) { // optional args formatted with []
                    var _arg = ""
                    switch(_opt_args[a]) {
-                       case data_types.bool: _arg = "[boolean] "; break
-                       case data_types.integer: _arg = "[integer] "; break
-                       case data_types.real: _arg = "[real] "; break
-                       case data_types.string: _arg = "[string] "; break
+                       case data_types.bool:
+                           _arg = "[boolean] "
+                           break
+                       case data_types.integer:
+                           _arg = "[integer] "
+                           break
+                       case data_types.real:
+                           _arg = "[real] "
+                           break
+                       case data_types.string:
+                           _arg = "[string] "
+                           break
                    }
                    _args_string += _arg
                }
@@ -147,21 +179,21 @@ commands = [
     }
 ]
 
-/// @description Strips out characters from input that aren't standard ASCII characters.
+/// @description strips out characters from input that aren't standard ASCII characters
 function normalize_input(_string) {
     var _clean = ""
     var _len = string_length(_string)
     for (var i = 1; i <= _len; i++) {
         var _char = string_char_at(_string, i)
-        var _code = ord(_char);
+        var _code = ord(_char)
         if (_code >= 32 && _code <= 126) {
-            _clean += _char;
+            _clean += _char
         }
     }
     return _clean
 }
 
-/// @description Logs specified string in GUI; does not run commands.
+/// @description logs specified string in GUI; does not run commands
 function log_console(_string, _color = c_white) {
     var _wrapped = wrap_formatted_text(string(_string), char_limit, false)
     var _lines = string_split(_wrapped, "\n")
@@ -177,9 +209,9 @@ function log_console(_string, _color = c_white) {
     scroll_offset = 0
 }
 
-/// @description Runs any command specified by name in obj_console's commands array.
+/// @description runs any command specified by name in obj_console's commands array
 function run_command(_input) {
-    if (_input == "") return
+    if (_input == "") {return}
     array_push(command_history, _input)
     history_index = array_length(command_history)
 
@@ -223,7 +255,7 @@ function run_command(_input) {
                     case data_types.bool:
                         var _lower = string_lower(_raw_val)
                         if (_lower == "true" || _lower == "1") {array_push(_parsed_args, true)}
-                        else if (_lower == "false" || _lower == "0") {array_push(_parsed_args, false);}
+                        else if (_lower == "false" || _lower == "0") {array_push(_parsed_args, false) }
                         
                         else { 
                             log_console("Error: Argument " + string(j+1) + " must be a boolean (true/false).", c_red)
@@ -253,11 +285,21 @@ function run_command(_input) {
             
             if (_valid_types) {
                 switch (array_length(_parsed_args)) {
-                    case 0: _cmd.func(); break
-                    case 1: _cmd.func(_parsed_args[0]); break
-                    case 2: _cmd.func(_parsed_args[0], _parsed_args[1]); break
-                    case 3: _cmd.func(_parsed_args[0], _parsed_args[1], _parsed_args[2]); break
-                    case 4: _cmd.func(_parsed_args[0], _parsed_args[1], _parsed_args[2], _parsed_args[3]); break
+                    case 0:
+                        _cmd.func()
+                        break
+                    case 1:
+                        _cmd.func(_parsed_args[0])
+                        break
+                    case 2:
+                        _cmd.func(_parsed_args[0], _parsed_args[1])
+                        break
+                    case 3:
+                        _cmd.func(_parsed_args[0], _parsed_args[1], _parsed_args[2])
+                        break
+                    case 4:
+                        _cmd.func(_parsed_args[0], _parsed_args[1], _parsed_args[2], _parsed_args[3])
+                        break
                 } // just add more cases if SOMEHOW you have a command that needs more than 4 arguments
             }
             
@@ -270,7 +312,7 @@ function run_command(_input) {
     }
 }
 
-/// @description Gives a list of valid autocomplete strings for a given argument slot of a command; can be specified through arg_options.
+/// @description gives a list of valid autocomplete strings for a given argument slot of a command; can be specified through arg_options
 function get_arg_options(_cmd, _arg_index) {
     var _req_count = array_length(_cmd.args)
     var _opt_args = _cmd[$ "optional_args"] ?? []

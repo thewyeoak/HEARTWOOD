@@ -1,3 +1,3 @@
-// Prevents decimal x and y values. 
+// prevents decimal x and y values
 x = round(x)
 y = round(y)

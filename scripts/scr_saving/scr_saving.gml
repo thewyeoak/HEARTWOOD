@@ -1,71 +1,54 @@
 function save_player()
 {
-    
+    // todo
 }
 
 function load_player()
 {
-    
+    // todo two
 }
 
-function load_settings()
-{
-    if (file_exists("settings.json")) {
-    	var buffer = buffer_load("settings.json");
-    	var json = buffer_read(buffer, buffer_string);
-    	buffer_delete(buffer);
-    	var data = json_parse(json);
-    	
-    	var names = struct_get_names(global.settings);
-    	var names_length = array_length(names);
-    	
-    	for (var i = 0; i < names_length; i++) {
-    		if (variable_struct_exists(data, names[i])) {
-    			variable_struct_set(global.settings, names[i], variable_struct_get(data, names[i]));
-    		}
-    	}
-    } else {
-        // Create a default save file if one doesn't exist
-    	var file = file_text_open_write("settings.json");
-    	file_text_write_string(file, json_stringify(global.settings));
-    	file_text_close(file);
+function json_load_into(_file, _target) {
+    if (!file_exists(_file)) {
+        json_save(_file, _target)
+        return false
     }
+
+    var _buffer = buffer_load(_file)
+    var _data = json_parse(buffer_read(_buffer, buffer_string))
+    buffer_delete(_buffer)
+
+    var _names = struct_get_names(_target)
+
+    for (var i = 0; i < array_length(_names); i++) {
+        if (variable_struct_exists(_data, _names[i])) {
+            _target[$ _names[i]] = _data[$ _names[i]]
+        }
+    }
+
+    return true
+}
+
+function json_save(_file, _data) {
+    var _handle = file_text_open_write(_file)
+    file_text_write_string(_handle, json_stringify(_data))
+    file_text_close(_handle)
+}
+
+function load_settings() {
+    json_load_into("settings.json", global.settings)
 }
 
 function save_settings() {
-    var file = file_text_open_write("settings.json");
-	file_text_write_string(file, json_stringify(global.settings));
-	file_text_close(file);
+    json_save("settings.json", global.settings)
 }
 
-function load_flags()
-{
-    if (file_exists("saves.json")) {
-	var buffer = buffer_load("saves.json");
-	var json = buffer_read(buffer, buffer_string);
-	buffer_delete(buffer);
-	var data = json_parse(json);
-	
-	var names = struct_get_names(global.files);
-	var names_length = array_length(names);
-	
-	for (var i = 0; i < names_length; i++) {
-		if (variable_struct_exists(data, names[i])) {
-			variable_struct_set(global.files, names[i], variable_struct_get(data, names[i]));
-		}
-	}
-} else {
-	// Create a default save file if one doesn't exist
-	var file = file_text_open_write("saves.json");
-    file_text_write_string(file, json_stringify(global.files));
-	file_text_close(file);
-    }
+function load_flags() {
+    json_load_into("saves.json", global.files)
 }
 
 function save_flags() {
-    var file = file_text_open_write("saves.json");
-    file_text_write_string(file, json_stringify(global.files));
-    file_text_close(file);
+    json_save("saves.json", global.files)
 }
 
 function save_all() {

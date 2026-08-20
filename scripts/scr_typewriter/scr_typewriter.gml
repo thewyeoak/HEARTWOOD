@@ -1,105 +1,114 @@
 // created by python_b5 for undertale wildfire; edited by thewyeoak to add pitch support
 // Creates a new typewriter ("types" characters out one at a time).
-function typewriter(_font, _char_spacing, _line_spacing, line_length, add_asterisks, _blip, _can_skip, _speaker, _text, _pitch_low = 1, _pitch_high = 1) constructor {
-	font = _font;
-	char_spacing = _char_spacing;
-	line_spacing = _line_spacing;
-	blip = _blip;
-    pitch_low = _pitch_low
-    pitch_high = _pitch_high
-	can_skip = _can_skip;
-	speaker = _speaker;
-	text = wrap_formatted_text(_text, line_length, add_asterisks);
-	
-	text_length = string_length(text);
-	
-	shown_chars = 0;
-	shown_text = "";
-	
-	delay = 1;
-	char_timer = delay;
-	
-	auto_pause = true;
-	
+// takes a page that has already been through dialogue_page_resolve
+function typewriter(_page) constructor {
+	font = _page.font
+	char_spacing = _page.char_spacing
+	line_spacing = _page.line_spacing
+	blip = _page.blip
+	pitch_low = _page.pitch_low
+	pitch_high = _page.pitch_high
+	can_skip = _page.can_skip
+	speaker = _page.speaker
+	text = wrap_formatted_text(_page.text, _page.line_length, _page.add_asterisks)
+
+	text_length = string_length(text)
+
+	shown_chars = 0
+	shown_text = ""
+
+	delay = 1
+	char_timer = delay
+
+	auto_pause = true
+
 	if (speaker != noone) {
-		global.speaker = speaker;
+		global.speaker = speaker
 	}
-	
-	// Scans for and parses as many tags as possible from the current text position.
+
+	// scans for and parses as many tags as possible from the current text position
 	static parse_tags = function() {
-		var char = string_char_at(text, shown_chars + 1);
-		var exclude = false;
-		
+		var char = string_char_at(text, shown_chars + 1)
+		var exclude = false
+
 		while (char == "{") {
-			shown_chars++;
-			
+			shown_chars++
+
 			if (string_char_at(text, shown_chars + 1) == "{") {
-				// Handle escaped "{"s
-				shown_chars++;
-				break;
+				// handle escaped "{"s
+				shown_chars++
+				break
 			} else {
-				// Skip past and read tag
-				shown_text += char;
-				var tag = "";
-				
+				// skip past and read tag
+				shown_text += char
+				var tag = ""
+
 				do {
-					char = string_char_at(text, ++shown_chars);
-					shown_text += char;
-				
+					char = string_char_at(text, ++shown_chars)
+					shown_text += char
+
 					if (char != "}") {
-						tag += char;
+						tag += char
 					}
-				} until (char == "}");
-				
-				// Handle tag
-				var parts = string_split(tag, ",");
+				} until (char == "}")
+
+				// handle tag
+				var parts = string_split(tag, ",")
 				if (array_length(parts) == 2) {
 					if (string_digits(parts[1]) == parts[1]) {
-						var number = real(parts[1]);
-						if (parts[0] == "d") {  // Change delay between characters
-							delay = number;
-						} else if (parts[0] == "p" && number > 0) {  // Pause for a specific amount of frames
-							char_timer += number;
+						var number = real(parts[1])
+						if (parts[0] == "d") { // change delay between characters
+							delay = number
+						} else if (parts[0] == "p" && number > 0) { // pause for a specific amount of frames
+							char_timer += number
 						}
 					} else if (parts[0] == "a") {
 						switch (parts[1]) {
-							case "y": auto_pause = true; break;
-							case "n": auto_pause = false; break;
-							case "e": exclude = true; break;
+							case "y":
+								auto_pause = true
+								break
+
+							case "n":
+								auto_pause = false
+								break
+
+							case "e":
+								exclude = true
+								break
 						}
 					}
 				}
-				
-				// Get the character after the tag
-				char = string_char_at(text, shown_chars + 1);
+
+				// get the character after the tag
+				char = string_char_at(text, shown_chars + 1)
 			}
 		}
-		
-		return (char == " " || char == "\n") && !exclude;
+
+		return (char == " " || char == "\n") && !exclude
 	}
-	
-	parse_tags();
-	
-	// Performs the main logic of the typewriter.
-	// Should be called once per frame.
+
+	parse_tags()
+
+// performs the main logic of the typewriter
+	// should be called once per frame
 	static step = function() {
 		if (can_skip && global.keys_pressed.cancel) {
-			shown_chars = text_length;
-			shown_text = text;
+			shown_chars = text_length
+			shown_text = text
 		} else if (shown_chars < text_length && --char_timer <= 0) {
 			while (true) {
-				var char = string_char_at(text, ++shown_chars);
-				shown_text += char;
-				
-				// We need this character later on to handle auto-pauses
-				var auto_pause_char = char;
-				
-				// Play a voice blip on alphanumeric characters
+				var char = string_char_at(text, ++shown_chars)
+				shown_text += char
+
+				// we need this character later on to handle auto-pauses
+				var auto_pause_char = char
+
+				// play a voice blip on alphanumeric characters
 				if (string_length(string_lettersdigits(char)) == 1 && blip != noone) {
-                    audio_sound_pitch(blip, random_range(pitch_low,pitch_high))
-					audio_play_sound(blip, 1, false);
+					audio_sound_pitch(blip, random_range(pitch_low, pitch_high))
+					audio_play_sound(blip, 1, false)
 				}
-				
+
 				// parse_tags() returns whether we can auto-pause
 				if (parse_tags() && auto_pause) {
 					switch (auto_pause_char) {
@@ -110,56 +119,34 @@ function typewriter(_font, _char_spacing, _line_spacing, line_length, add_asteri
 						case ";":
 						case ":":
 						case "-":
-							char_timer += delay * 5;
-							break;
+							char_timer += delay * 5
+							break
 					}
 				}
-				
+
 				if (shown_chars < text_length) {
 					if (delay > 0) {
-						char_timer += delay;
-						break;
+						char_timer += delay
+						break
 					}
 				} else {
-					break;
+					break
 				}
 			}
 		}
-		
+
 		if (shown_chars == text_length && speaker != noone) {
-			global.speaker = noone;
+			global.speaker = noone
 		}
 	}
-	
-	// Draws the currently shown characters.
+
+	// whether every character has been typed out
+	static is_done = function() {
+		return shown_chars == text_length
+	}
+
+	// draws the currently shown characters
 	static draw = function(_x, _y) {
-		draw_formatted_text(_x, _y, font, char_spacing, line_spacing, shown_text);
+		draw_formatted_text(_x, _y, font, char_spacing, line_spacing, shown_text)
 	}
-}
-
-function page_typewriter(_page) {
-	return new typewriter(
-		_page[$ "font"] ?? fnt_main,
-		_page[$ "char_spacing"] ?? 16,
-		_page[$ "line_spacing"] ?? 36,
-		_page[$ "line_length"] ?? (is_undefined(_page.face) ? 32 : 25),
-		_page[$ "add_asterisks"] ?? true,
-		_page.blip,
-		_page[$ "can_skip"] ?? true,
-		_page.speaker,
-		_page.text,
-		_page[$ "pitch_low"] ?? 1,
-		_page[$ "pitch_high"] ?? 1
-	)
-}
-
-function dialogue_next_page() {
-	if current_page + 1 < pages_length {
-		current_page++
-		_typewriter = page_typewriter(pages[current_page])
-	} else {
-		instance_destroy()
-	}
-	
-	_choice_selector = noone
 }

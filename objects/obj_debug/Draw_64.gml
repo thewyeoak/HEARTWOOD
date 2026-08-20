@@ -1,5 +1,5 @@
 if !global.debug.display{
-    exit;
+    exit
 }
 
 // --- left side ---
@@ -39,7 +39,7 @@ for (var i = 0; i < array_length(_inputs); i++) {
 draw_set_halign(fa_right)
 
 if (instance_exists(obj_player)) {
-    var _h_pos = 640 - h_margin
+    var _h_pos = game_width - h_margin
     
     var _direction_text = ["UP", "DOWN", "LEFT", "RIGHT"]
     var _facing = _direction_text[obj_player.facing]

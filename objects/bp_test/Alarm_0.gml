@@ -15,7 +15,7 @@ with (_blaster) {
     self_target.y = _dest_y
     target_object = obj_heart
     
-    image_yscale = 1 // can be set to whatever 
+    image_yscale = 1 // can be set to whatever
 }
 
 alarm[0] = spawn_rate

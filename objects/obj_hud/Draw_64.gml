@@ -1,6 +1,4 @@
-if (!surface_exists(display_surface)) {
-    display_surface = surface_create(640, 480)
-}
+display_surface = surface_ensure(display_surface, width, height)
 
 surface_set_target(display_surface)
 draw_clear_alpha(c_black, 0)
@@ -21,23 +19,23 @@ draw_set_colour(c_white)
 
 draw_text(h_offsets.name, _bottom_y1 + v_offset, global.current_file.player_name)
 draw_text(h_offsets.lv, _bottom_y1 + v_offset, "LV " + string(global.stats.lv))
-draw_sprite(spr_hp_label, 0, h_offsets.hp_label, _bottom_y1 + 15)
+draw_sprite(spr_hp_label, 0, h_offsets.hp_label, _bottom_y1 + bar_gap)
 
-var _bar_length = h_offsets.hp + (global.stats.max_hp * 1.2)
+var _bar_length = h_offsets.hp + (global.stats.max_hp * bar_scale)
 draw_healthbar(
     h_offsets.hp, 
     _bottom_y1 + v_offset, 
     _bar_length, 
-    _bottom_y1 + 30, 
-    (global.stats.hp / global.stats.max_hp) * 100, 
-    c_red, c_yellow, c_yellow, 
+    _bottom_y1 + bar_height,
+    (global.stats.hp / global.stats.max_hp) * 100,
+    bar_back_color, bar_fill_color, bar_fill_color,
     0, true, false
 )
 
 var _current_hp = ceil(global.stats.hp)
 var _hp_string = _current_hp < 10 ? "0" + string(_current_hp) : string(_current_hp)
 
-draw_text(_bar_length + 15, _bottom_y1 + v_offset, $"{_hp_string} / {global.stats.max_hp}")
+draw_text(_bar_length + bar_gap, _bottom_y1 + v_offset, $"{_hp_string} / {global.stats.max_hp}")
 
 surface_reset_target()
 draw_surface(display_surface, 0, 0)

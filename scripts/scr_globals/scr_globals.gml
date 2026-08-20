@@ -4,6 +4,9 @@ global.time = 0
 global.spawn_index = 0
 global.speaker = noone
 
+// true from the start of a room transition until the fade back in finishes
+global.transitioning = false
+
 global.dark = false
 
 global.borders = {

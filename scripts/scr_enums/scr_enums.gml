@@ -2,11 +2,18 @@ enum directions {
     up,
     down,
     left,
-    right
+    right,
+    keep
+}
+
+enum trigger_modes {
+    custom,
+    transition,
+    battle
 }
 
 enum text_effects {
-	swirl,  // characters move in circles
+	swirl, // characters move in circles
 	shake, // characters move around sporadically
     up_down // similar to wave, but only on y Axis
 }
@@ -22,6 +29,17 @@ enum soul_mode {
     battle,
     overworld,
     blue
+}
+
+enum blaster_state {
+    idle,
+    charge,
+    recoil
+}
+
+enum beam_state {
+    fire,
+    fade
 }
 
 enum easing {

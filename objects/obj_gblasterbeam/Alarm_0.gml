@@ -1,1 +1,1 @@
-state = "fade"
+state = beam_state.fade

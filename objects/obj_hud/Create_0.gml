@@ -1,8 +1,11 @@
 // VERY inspired by doghole dungeon, but to be fair they were borrowing from undertale anyways so... fair game?
-enabled = false prev_enabled = enabled
+enabled = false
+prev_enabled = enabled
 
 total_height = 40
-width = 640 height = 480
+width = game_width
+height = game_height
+
 display_surface = -1
 
 anim_offset = enabled ? 0 : total_height
@@ -15,3 +18,14 @@ h_offsets = {
 }
 
 v_offset = 9
+
+// how the bar slides in and out when the hud is toggled
+slide_time = 0.4
+slide_ease = easing.out_cubic
+
+// hp bar sizing and colours
+bar_scale = 1.2
+bar_gap = 15
+bar_height = 30
+bar_back_color = c_red
+bar_fill_color = c_yellow

@@ -27,16 +27,15 @@
   "physicsShapePoints":[],
   "physicsStartAwake":true,
   "properties":[
-    {"$GMObjectProperty":"v2","%Name":"facing","filters":[],"listItems":[],"multiselect":false,"name":"facing","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"directions.down","varFriendlyName":"facing","varType":4,},
-    {"$GMObjectProperty":"v2","%Name":"index","filters":[],"listItems":[],"multiselect":false,"name":"index","rangeEnabled":true,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":1,},
+    {"$GMObjectProperty":"v2","%Name":"ignore_sprite","filters":[],"listItems":[],"multiselect":false,"name":"ignore_sprite","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"False","varDescription":"Will ignore the direction of the sprite of the dummy, which usually sets its facing direction and index, so the player will spawn at it with an unchanged facing direction.","varFriendlyName":"Ignore Facing Direction","varType":3,},
   ],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_dummy",
-    "path":"sprites/spr_dummy/spr_dummy.yy",
+    "name":"spr_dummy_down",
+    "path":"sprites/spr_dummy_down/spr_dummy_down.yy",
   },
   "spriteMaskId":null,
-  "visible":false,
+  "visible":true,
 }

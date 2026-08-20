@@ -1,20 +1,19 @@
 if (instance_exists(creator)) {
-    var _mouth_offset = 20
-    x = creator.x + lengthdir_x(_mouth_offset, image_angle)
-    y = creator.y + lengthdir_y(_mouth_offset, image_angle)
+    x = creator.x + lengthdir_x(mouth_offset, image_angle)
+    y = creator.y + lengthdir_y(mouth_offset, image_angle)
 }
 
 switch (state) {
-    case "fire":
-        image_yscale = lerp(image_yscale, max_thickness, 0.6)
-    break
-        
-    case "fade":
-        image_yscale = lerp(image_yscale, 0, 0.2)
-        image_alpha -= 0.1
+    case beam_state.fire:
+        image_yscale = lerp(image_yscale, max_thickness, grow_lerp)
+        break
+
+    case beam_state.fade:
+        image_yscale = lerp(image_yscale, 0, shrink_lerp)
+        image_alpha -= fade_speed
 
         if (image_alpha <= 0) {
             instance_destroy()
         }
-    break
+        break
 }

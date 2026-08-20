@@ -1,5 +1,8 @@
 function draw_outline(outline_width, outline_color, outline_alpha)
 {
+    // everything below costs two render target switches so a hidden outline is worth skipping
+    if (outline_alpha <= 0) {return}
+
     var _w = sprite_get_width(sprite_index) * abs(image_xscale)
     var _h = sprite_get_height(sprite_index) * abs(image_yscale)
     var _xo = sprite_get_xoffset(sprite_index) * abs(image_xscale)
@@ -10,7 +13,7 @@ function draw_outline(outline_width, outline_color, outline_alpha)
         point_distance(_xo, _yo, _w, 0),
         point_distance(_xo, _yo, 0, _h),
         point_distance(_xo, _yo, _w, _h)
-    );
+    )
     
     var _size = ceil(_max_d * 2) + (outline_width * 4)
     
@@ -50,13 +53,15 @@ function draw_outline(outline_width, outline_color, outline_alpha)
     draw_sprite_ext(sprite_index, image_index, _cx - __xdirB, _cy - __ydirB, image_xscale, image_yscale, image_angle, c_white, 1)
     
     gpu_set_fog(false, c_white, 0, 0)
-    surface_reset_target();
+    surface_reset_target()
     
     draw_surface_ext(_surf, x - _cx, y - _cy, 1, 1, 0, c_white, image_alpha * outline_alpha)
 }
 
 function draw_outline_ext(sprite, subimg, outline_x, outline_y, outline_xscale, outline_yscale, outline_rot, outline_color, outline_alpha, outline_width)
 {
+    if (outline_alpha <= 0) {return}
+
     var _w = sprite_get_width(sprite) * abs(outline_xscale)
     var _h = sprite_get_height(sprite) * abs(outline_yscale)
     var _xo = sprite_get_xoffset(sprite) * abs(outline_xscale)
@@ -67,7 +72,7 @@ function draw_outline_ext(sprite, subimg, outline_x, outline_y, outline_xscale, 
         point_distance(_xo, _yo, _w, 0),
         point_distance(_xo, _yo, 0, _h),
         point_distance(_xo, _yo, _w, _h)
-    );
+    )
     
     var _size = ceil(_max_d * 2) + (outline_width * 4)
     

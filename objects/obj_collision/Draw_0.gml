@@ -1,4 +1,3 @@
-if global.debug.cheats.hitboxes
-{ 
+if global.debug.cheats.hitboxes { 
     draw_self()
 }
